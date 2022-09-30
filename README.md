@@ -50,6 +50,7 @@ EMAIL_HOST_PASSWORD = os.environ['sender_email_password']
 ```
 Install and activate your local rabbitMQ server.
 https://www.rabbitmq.com/install-windows.html
+
 Activate Django celery worker.
 ```
 celery -A apps.email_sender worker --loglevel=info
