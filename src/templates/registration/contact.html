@@ -1,0 +1,49 @@
+{% extends 'navfoot.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<br>
+
+
+    <div class="row justify-content-center">
+        
+            <div class="card col-auto" style=width:370px>
+                <h5 class="card-header bg-white">Contact form</h5>
+                <br/>
+
+                <div class="card-body">
+
+                    <form  method="POST" class="form-group">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email"  name="email" required>
+                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name"  name="name" required>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Your phone number (Optional)"  name="Phone number">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" placeholder="Your Message" style="height: 200px;" name="message" required></textarea>
+                        </div>
+
+                        <br/>
+                        <button class="btn btn-success" >Send</button>
+
+                        <br />
+
+                    </form>
+                    
+                </div>
+            </div>
+    </div>
+
+
+    <br>
+    <br>
+{% endblock content %}   

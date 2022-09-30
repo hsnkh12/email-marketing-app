@@ -1,0 +1,207 @@
+{% extends 'navfoot.html' %}
+{% load static %}
+
+{% block title %}
+<meta description="Sendthro is a simple and free Email Marketing Software." >
+<title>Sendthro</title>
+{% endblock title %}
+
+{% block content %}
+
+      <header class="pt-4 pt-md-11" style="padding: 40px;">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-5 col-lg-6 order-md-2">
+    
+              <!-- Image -->
+              <img src="{% static 'imgs/mail_sender4.jpg' %}" class="img-fluid mw-md-150 mw-lg-130 mb-6 mb-md-0 aos-init aos-animate" alt="..." data-aos="fade-up" data-aos-delay="100">
+              <br>
+              <br>
+              
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate" data-aos="fade-up">
+    
+              <!-- Heading -->
+              <h1 class="display-3 text-center text-md-start">
+                Welcome to <span class="text-secondary">Sendthro</span>. <br>
+                
+              </h1>
+              
+              <!-- Text -->
+              <h2 class="lead text-center text-md-start text-muted mb-6 mb-lg-8">
+                <h5 style="color: rgb(78, 78, 78);">It's a simple and free Email Marketing Software.</h5>Create your own campaigns and Start sending newsletters and messages easily to your subscribers.
+              </p>
+    
+              <!-- Buttons -->
+              <div class="text-center text-md-start">
+                
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'messenger:campaigns' %}" class="btn btn-dark lift btn-lg" >
+                  Messenger
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:register' %}" class="btn btn-dark shadow lift btn-lg" >
+                  Get started 
+                </a>
+                {% endif %}
+              </div>
+    
+            </div>
+          </div> <!-- / .row -->
+        </div> <!-- / .container -->
+      </header>
+      <br>
+
+
+      <section class="pt-4 pt-md-11 bg-light" style="padding: 40px">
+        <div class="container">
+          <h3 class='display-3' style="text-align:center;font-size: 32px;">How to start?</h3>
+          <br>
+          <br>
+
+          <ul class="list-group">
+            <li class="list-group-item" style="padding: 15px;text-align: center;">1- Create a new account</li>
+            <li class="list-group-item" style="padding: 15px;text-align: center;">2- Add a sender email </li>
+            <li class="list-group-item" style="padding: 15px;text-align: center;">3- Get subscribers to your account</li>
+            <li class="list-group-item" style="padding: 15px;text-align: center;">4- Start creating campaigns </li>
+            <li class="list-group-item" style="padding: 15px;text-align: center;">5- Track your mails and subscribers </li>
+          </ul>
+          
+        </div>
+        
+        <br>
+        <br>
+      </section>
+
+
+      <br>
+      <section class="pt-4 pt-md-11" style="padding: 40px">
+        <div class="container">
+          <h3 class='display-3' style="text-align:center;font-size: 32px;">Services</h3>
+          <br>
+          <br>
+          <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center" >
+  
+            <div class="col" style="width: 300px;">
+  
+              <div class="card  shadow-md p-3  bg-white rounded" >
+                <br>
+                <div style="display: grid;place-items: center;" >
+                  <i class="fas fa-code" style="font-size: 30px;"></i>
+                  
+                  <h6 class="card-title" style="margin-top: 10px;">Custom Html messages design</h6>
+                </div>
+                <br>
+                
+              </div>
+              
+            
+            </div>
+            <div class="col" style="width: 300px;">
+              <div class="card  shadow-md p-3  bg-white rounded" >
+                <br>
+                <div style="display: grid;place-items: center;" >
+                  <i class="fas fa-font" style="font-size: 30px;"></i>
+                  
+                  <h6 class="card-title" style="margin-top: 10px;">Plain text messages</h6>
+                </div>
+                <br>
+                
+              </div>
+              
+            </div>
+            
+            
+            <div class="col" style="width: 300px;">
+              <div class="card shadow-md p-3  bg-white rounded" >
+                <br>
+                <div style="display: grid;place-items: center;" >
+                
+                  <i class="fab fa-wpforms" style="font-size: 30px;"></i>
+                  
+                  <h6 class="card-title" style="margin-top: 10px;">Custom forms ( soon ).</h6>
+                </div>
+                <br>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+        <br>
+        <br>
+      </section>
+      
+
+
+      
+
+
+      <br>
+      <section class="pt-4 pt-md-11 bg-light" style="padding: 40px">
+        <h3 class='display-3' style="text-align:center;font-size: 32px;">Features</h3>
+        <br>
+        
+        <br>
+        <div class="row row-cols-1 row-cols-md-3 justify-content-center g-3" >
+
+          <div class="col" style="width: 300px;">
+
+            <div class="card  shadow-md p-3 bg-white rounded" >
+              <div style="display: grid;place-items: center;" >
+                <i class="fas fa-hand-holding-usd" style="font-size: 30px;margin-top: 20px;"></i>
+                
+                <h5 class="card-title" style="margin-top: 10px;">Free to use</h5>
+              </div>
+              <div class="card-body">
+                
+                <p class="card-text">You will not be charged for using anything in this site, all the services are free to use for now. Enjoy!</p>
+                <br>
+                
+              </div>
+            </div>
+            
+          
+          </div>
+          <div class="col" style="width: 300px;">
+            <div class="card  shadow-md p-3  bg-white rounded" >
+              <div style="display: grid;place-items: center;" >
+                <i class="far fa-handshake" style="font-size: 30px;margin-top: 20px;"></i>
+                
+                <h5 class="card-title" style="margin-top: 10px;">Simple and easy</h5>
+              </div>
+              <div class="card-body">
+                
+                <p class="card-text">We tried as much as we can, to make this website easy and simple to use. Basic design with fast performance.</p>
+                <br>
+                
+              </div>
+            </div>
+            
+          </div>
+          <div class="col" style="width: 300px;">
+            <div class="card shadow-md p-3  bg-white rounded" >
+              <div style="display: grid;place-items: center;" >
+              
+                <i class="fas fa-shield-alt" style="font-size: 30px;margin-top: 20px;"></i>
+                
+                <h5 class="card-title" style="margin-top: 10px;">Security</h5>
+              </div>
+              <div class="card-body">
+                
+                <p class="card-text">This website is built using high quality technologies, all sensitive information will be encrypted</p>
+                <br>
+                
+              </div>
+            </div>
+            
+          </div>
+          <br>
+          <br>
+        </div>
+      </section>
+      
+
+
+{% endblock content %}
+

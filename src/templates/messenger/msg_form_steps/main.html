@@ -1,0 +1,92 @@
+{% extends 'messenger/main.html' %}
+{% block container %}
+
+<style>
+    a{
+        text-decoration: none;
+    }
+</style>
+<form action="" method = 'POST'>
+
+    {% if step %}
+        <div class="card mb-3" >
+            <div class="card-body row" >
+                <div class="col-6" style="display: grid;place-items: center start;">
+                    
+                    <nav style="--bs-breadcrumb-divider: '>';" class='mt-2' aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item active" aria-current="page"> Settings </li>
+                          <li class="breadcrumb-item active" aria-current="page"> Body  </li>
+                          <li class="breadcrumb-item active" aria-current="page"> Confirmation  </li>
+                        </ol>
+                    </nav>
+                    
+                    
+                    
+                </div>
+
+                <div class="col-6" style="display: grid;place-items: center end;">
+                    <div>
+                        
+                        <span><button class="btn btn-secondary" id='cancel-btn' type="button">Cancel</button></span>
+                        
+                        <span>{% block button %}{% endblock button %}</span>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+            
+        </div>
+    {% endif %}
+    
+    
+    
+    
+    {% block steps %}
+    {% endblock steps %}
+</form>
+
+<script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const camp = urlParams.get('camp');
+    const btn = document.getElementById('cancel-btn')
+
+    if ( !camp ){
+        btn.style.display = 'none'
+    }
+
+    btn.addEventListener('click',function(){
+
+        let c = confirm('Are your sure you want to cancel this campaign?')
+
+        if(c){
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const camp = urlParams.get('camp');
+
+            let url = '/messenger/campaign-delete/'+camp
+
+            fetch( url, {
+                method : "DELETE",
+                headers : {
+                    "Content-type":"application/json",
+                    "X-CSRFToken" : csrftoken
+                },
+            })
+            .then((response) => {
+                
+                window.location.href= '/messenger/campaigns/'
+                return response.json();
+            })
+
+        }
+    })
+</script>
+
+
+
+{% endblock container %}

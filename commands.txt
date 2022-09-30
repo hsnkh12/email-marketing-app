@@ -1,0 +1,2 @@
+To activate celery worker:
+$ celery -A apps.email_sender worker --loglevel=info

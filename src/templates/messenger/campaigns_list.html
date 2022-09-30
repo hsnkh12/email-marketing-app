@@ -1,0 +1,73 @@
+{% extends 'messenger/main.html' %}
+{% block container %}
+    <style>
+        .card-item{
+            padding: 20px;
+            text-decoration: none;
+            
+        }
+
+        .card{
+            margin: 0px 10px 10px 0px;
+        }
+    </style>
+    
+    <div class="row">
+        <div class="col-6" style="display: grid;place-content: center start;">
+            <h1 class="col-6">Campaigns</h1>
+        </div>
+        
+         <div class="col-6" style="display: grid;place-content: center end;">
+            <a  class="btn btn-dark btn-md " href='/messenger/campaign-create?step=1' style="margin-bottom: 8px;">+</a>
+         </div>
+        
+    </div>
+    <br>
+    
+    
+
+    <div class="list-group">
+        
+        {% for camp in camps %}
+        {% if camp.completed %}
+        <a href="{{camp.get_absolute_url}}" class="list-group-item list-group-item-action bg-light" style="border-bottom: 1px solid rgba(219, 219, 219, 0.829);padding: 25px;"  >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 >{{camp.message.subject}}</h5>
+            <p style="color: rgb(133, 133, 133);">{{camp.date_sent}}</p>
+          </div>
+          <p style="margin-top: -9px;">{{camp.from_email.email}}</p>
+            {% if camp.status == 'p' %}
+                <p class="mb-1" style="color: rgba(255, 166, 0, 0.829);" data-bs-toggle="tooltip" data-bs-placement="top" title="Message broker is processing your message">{{camp.get_status_display}}</p>
+            {% elif camp.status == 'a' %}
+                <p class="mb-1 " style="color: green;" data-bs-toggle="tooltip" data-bs-placement="top" title="Your message is accepted and sent to your subscribers">{{camp.get_status_display}}</p>
+            {% else %}
+                <p class="mb-1 " style="color: rgba(255, 0, 0, 0.822);" data-bs-toggle="tooltip" data-bs-placement="top" title="Your message is regected for some reason">{{camp.get_status_display}}</p>
+            {% endif %}
+        </a>
+        {% else %}
+
+        <div class="list-group-item list-group-item-action bg-light" style="border-bottom: 1px solid rgba(219, 219, 219, 0.829);padding: 25px;"  >
+            <div class="d-flex w-100 justify-content-between">
+              <h5 >{{camp.message.subject}}</h5>
+              <a href='/messenger/campaign-create/?step=2&camp={{camp.id}}' style="border:1px solid rgba(192, 192, 192, 0.671);" class="btn" ><i class="far fa-edit" style="font-size: 16px;"></i>....</a>
+            </div>
+            <p style="margin-top: -9px;" >{{camp.from_email.email}}</p>
+            <p class="mb-1" >Draft</p>
+        </div>
+
+        {% endif %}
+        
+        {% endfor %}
+        
+
+        
+    </div>    
+
+{% endblock container %}   
+
+
+
+
+
+
+

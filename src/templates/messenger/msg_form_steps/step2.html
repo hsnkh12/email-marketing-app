@@ -1,0 +1,141 @@
+{% extends 'messenger/msg_form_steps/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block button %}         
+    <button class="btn btn-primary" type="button" id="send-msg-btn">Save & continue</button>
+{% endblock button %}
+
+
+{% block steps %}
+
+
+{% if body %}
+    <textarea id="holder" hidden>{{body}}</textarea>
+{% endif %}
+
+
+{% if type == 'h' %}
+<div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+    <div class="col col-md-7 ">
+        <div class="card "  style="padding: 25px;">
+
+            <h5 class="card-header ">Drop HTML code here</h5>
+            <br/>
+            <div class="card-body">
+
+                <div class="editor">
+
+                    <div class="code" style="margin-bottom: 10px;">
+                        <textarea id="holder" class="form-control html-code" cols="30" rows="10">{{body}}</textarea>
+                    </div>
+                    
+                </div>
+                <div class="header">
+                    <button id="run-btn" class="btn btn-secondary" type="button" >Run html code</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col col-md-5">
+        <div class="card "  style="padding: 25px;">
+
+            <h5 class="card-header ">Perview</h5>
+            <br/>
+            
+                <iframe  class="preview" id="preview-window" style="height: 380px;"></iframe>
+            
+            
+        </div>
+    </div>
+
+</div>
+
+{% else %}
+<textarea name="" class="form-control"  id="plain_body" cols="30" rows="10">{{body}}</textarea>
+
+{% endif %}
+
+    
+    
+
+
+
+<script>
+    
+    
+
+    '{% if body %}'
+    
+        default_html = document.getElementById('holder').value
+
+    '{% else %}'
+        default_html = "<!DOCTYPE html>\n<html lang='en'>\n<head>\n<meta charset='UTF-8'>\n<meta http-equiv='X-UA-Compatible' content='IE=edge'>\n<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n<title>Message</title>\n</head>\n<style>\n</style>\n<body style='background-color: white;'>\n<h3>Body content.. </h3>\n</body>\n</html>"
+    
+    '{% endif %}'
+
+
+
+    "{% if type == 'h' %}"
+
+    const htmlEditor = document.querySelector(".html-code")
+
+    let runBtn = document.querySelector("#run-btn")
+    
+    
+
+    runBtn.addEventListener("click",function(){
+	let htmlCode = htmlEditor.value;
+	let previewWindow = document.querySelector("#preview-window").contentWindow.document;
+	previewWindow.open();
+	previewWindow.write(htmlCode);
+	previewWindow.close();
+    })
+
+    runBtn.click()
+
+    "{% endif %}"
+
+    
+
+    
+    
+    
+    document.getElementById('send-msg-btn').addEventListener('click',function(){
+
+        "{% if type == 'p' %}"
+            body = document.getElementById('plain_body').value
+        "{% else %}"
+            body = htmlEditor.value
+        "{% endif %}"
+
+        if( body === '' || body === null){
+            body = 'Body Content...'
+        }
+        var url = window.location.href
+        
+        fetch(url,{
+            method : "POST",
+            headers : {
+                "Content-type":"application/json",
+                "X-CSRFToken" : csrftoken
+            },
+            body:JSON.stringify({
+                "body" :body
+            })
+        })
+        .then((res) => {
+            
+            return res.json();
+        })
+        .then((data) => {
+            window.location.href = '/messenger/campaign-create/?step=3&camp={{camp_id}}'
+        })
+    })
+
+    
+
+
+</script>
+{% endblock steps %}   

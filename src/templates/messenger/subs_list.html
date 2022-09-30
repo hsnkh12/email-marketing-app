@@ -1,0 +1,76 @@
+{% extends 'messenger/main.html' %}
+{% block container %}
+
+<style>
+    .card-item{
+        padding: 20px;
+        text-decoration: none;
+        
+    }
+
+    .card{
+        margin: 0px 10px 10px 0px;
+    }
+</style>
+
+<div>
+    <h1> Subscribers </h1>
+
+</div>
+
+<br>
+
+<div class="list-group" style="display: grid;place-items: center;">
+
+    {% for sub in subs %}
+    <div href="#" class="list-group-item list-group-item-action bg-light" id=card-{{sub.id}} style="border-bottom: 1px solid rgba(219, 219, 219, 0.829);;padding: 25px;"  >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{sub.email}}</h5>
+          <i class="fas fa-user-times sub-delete" data-sub={{sub.id}} style="font-size: large;cursor: pointer;color:red"></i>
+        </div>
+        <p class="mb-1 mt-3" >{{sub.date_joined}}</p>
+        
+    </div>
+    
+    {% endfor %}
+
+    
+</div>
+    
+
+<script>
+
+
+
+
+    var subDeleteBtns = document.getElementsByClassName('sub-delete')
+
+    for ( let i = 0 ; i < subDeleteBtns.length ; i++){
+
+        subDeleteBtns[i].addEventListener('click',function(){
+            c = confirm('Are you sure you want to kick this person?')
+            if (c){
+                deleteSub(this.dataset.sub)
+            }
+            
+        })
+    }
+    function deleteSub(id){
+
+        let url = '/messenger/subscribers/'+id
+
+        fetch( url, {
+            method : "DELETE",
+            headers : {
+                "Content-type":"application/json ",
+                "X-CSRFToken" : csrftoken
+            },
+        })
+        .then((response) => {
+            document.getElementById('card-'+id).remove()
+            return response.json();
+        })
+    }
+</script>
+
+{% endblock container %} 

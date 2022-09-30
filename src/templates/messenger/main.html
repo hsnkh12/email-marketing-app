@@ -1,0 +1,194 @@
+{% extends 'head.html' %}
+
+{% block title %}
+<title>Messenger</title>
+{% endblock title %}
+
+{% block style %}
+
+<style>
+
+
+
+.primary-text {
+  color: var(--main-text-color);
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+.primary-bg {
+  background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+  background-color: var(--second-bg-color);
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+#wrapper {
+  overflow-x: hidden;
+ 
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+#menu-toggle {
+  cursor: pointer;
+}
+.card {
+  background-color: rgba(240, 240, 240, 0.253);
+}
+.card-header{
+  background-color: inherit;
+}
+.list-group-item {
+  border: none;
+  padding: 10px 30px;
+}
+
+.list-group-item.active {
+  background-color: transparent;
+  color: var(--main-text-color);
+  font-weight: bold;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+</style>
+{% endblock style %}
+
+
+
+
+{% block body %}
+
+<body>
+    <div class="d-flex " id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark " id="sidebar-wrapper" >
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold  mt-2" style="color: white;"><h2 class="fs-2 m-0" >Messenger</h2></div>
+            <br>
+            
+            
+            <div class="list-group list-group-flush my-3" >
+                <a href="{% url 'messenger:campaigns' %}" class="list-group-item list-group-item-action bg-transparent second-text " style="color: white;"><i class="fas fa-envelope"></i>  &nbsp;&nbsp; Campaigns <hr ></a>
+                <a href="{% url 'messenger:emails' %}" class="list-group-item list-group-item-action bg-transparent second-text " style="color: white;"><i class="fas fa-at"></i> &nbsp;&nbsp; Emails <hr ></a>
+                <a href="{% url 'messenger:subscribers' %}" class="list-group-item list-group-item-action bg-transparent second-text " style="color: white;"><i class="fas fa-users"></i> &nbsp;&nbsp; Subscribers<hr ></a>
+                <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action bg-transparent second-text " style="color: white;"><i class="fas fa-user-alt"></i> &nbsp;&nbsp; Profile<hr ></a>
+                
+                <a href="{% url 'home' %}" class="list-group-item list-group-item-action bg-transparent second-text " style="color: white;"><i class="fas fa-sign-out-alt"></i> &nbsp;&nbsp; Get back<hr ></a>
+
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 " >
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    
+                </div>
+            </nav>
+
+            <section class="container-fluid px-4 bg-light">
+                
+                {% block container %}
+  
+                {% endblock container %}
+
+            </section>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+
+</body>
+    
+{% endblock body %}
+
+{% block script %}
+<script type="text/javascript">
+  atOptions = {
+    'key' : '363ccd8edf765d8eb6a49646f4d2700c',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+  document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.variouscreativeformats.com/363ccd8edf765d8eb6a49646f4d2700c/invoke.js"></scr' + 'ipt>');
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+
+        function getCsrfToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCsrfToken('csrftoken');
+
+
+
+    </script>
+{% endblock script %}

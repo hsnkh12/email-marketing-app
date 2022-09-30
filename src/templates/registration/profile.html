@@ -1,0 +1,82 @@
+{% extends 'messenger/main.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="row row-cols-1 row-cols-md-2 g-3" >
+
+    <div class="col  ">
+        <form method="POST" class='card ' style="padding: 25px;">
+        
+            <h5 class="card-header ">Porfile</h5>
+            <br/>
+    
+            <div class="card-body">
+    
+                <div action="" class="form-group">
+                
+                    {% csrf_token %}
+                    {% crispy form %}
+                    <br/>
+                    <button class="btn btn-success" type="submit">Update</button>
+    
+                </div>  
+                
+            </div>
+    
+        </form>
+    </div>
+    
+    <div class="col ">
+
+        <div class="card  mb-3" style="padding: 25px;margin-bottom: 25px">
+            
+            <h5 class="card-header ">Subscription</h5>
+            <br/>
+            <div class="card-body">
+
+                <br>
+                Form link :
+                <div class="input-group mb-3" >
+                    <input type="text" readonly class="form-control" id="myInput"  value="http://localhost:8000/messenger/subscriber-join/{{request.user.id}}" maxlength="0" >
+                    <button onclick="copyLink()" type="button" class="input-group-text btn btn-dark" id="basic-addon1"><i class="far fa-copy"></i></button>
+                </div>
+                
+    
+                
+            </div>
+    
+        </div>
+        
+        <div class="card " style="padding: 25px;margin-bottom: 25px">
+            
+            <h5 class="card-header ">Account</h5>
+            <br/>
+            <div class="card-body">
+    
+                <a href="{% url 'accounts:logout' %}" class="btn btn-secondary mb-2">Logout</a>
+                <br>
+                <a href="{% url 'accounts:account-delete' %}" class="btn btn-danger">Delete account</a>
+                <br>
+                
+            </div>
+    
+        </div>
+    </div>
+    
+    
+</div>
+
+<script>
+    function copyLink() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy"); 
+
+    }
+</script>
+{% endblock container %}   

@@ -1,0 +1,38 @@
+{% extends 'navfoot.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br><br>
+
+<style>
+     #hint_id_password1 {
+        display: none;
+    }
+</style>
+<div class='row' style="display: grid;place-items: center;" >
+
+    <form method="POST" class="card bg-light" style='padding: 25px;max-width: 450px;'>
+        
+        <h5 class="card-header  " style="background-color: inherit;">Register</h5>
+        <br/>
+        <div class="card-body">
+        <div action="" class="form-group">
+
+            {% csrf_token %}
+            {% crispy form %}
+            
+
+        </div>
+        <br/>
+        <button class="btn btn-success" type="submit">Register</button>
+        <br/>
+        <br>
+        <a href="{% url 'accounts:login' %}">Already have an account? Sign in</a>
+
+        </div>
+            
+        </div>
+    </form>
+
+</div>
+<br><br>
+{% endblock content %}    

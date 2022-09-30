@@ -1,0 +1,54 @@
+{% extends 'navfoot.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br><br>
+
+
+<div class='row' style="display: grid;place-items: center;">
+
+    <form method="POST" class="card bg-light" style="padding: 25px;max-width: 450px;">
+        
+        <h5 class="card-header " style="background-color: inherit;">Subscribe to {{user.email}}</h5>
+        <br/>
+        
+        <div class="card-body" >
+            <p style="color: rgb(75, 75, 75);">{{user.bio}}</p>
+            
+            <div action="" class="form-group">
+
+                {% csrf_token %}
+                {% crispy form %}
+
+                
+                
+
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" style="margin-bottom: -1px" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            
+            <br/>
+            <button class="btn btn-success" type="submit">Subscribe</button>
+            <br/>
+            <hr>
+            <p style="color: rgb(133, 133, 133);">Note that spam not allowed, you can unsubscribe or report. contact us: </p>
+
+            <a href="mailto:{YOUR EMAIL}">sendthro@gmail.com</a>
+            
+            
+            
+        </div>
+            
+        
+    </form>
+
+</div>
+<br><br>
+{% endblock content %}    
+

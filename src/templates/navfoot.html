@@ -1,0 +1,181 @@
+{% extends 'head.html' %}
+
+{% load static %}
+
+
+
+{% block body %}
+<body class="bg-dark">
+    
+
+
+<nav class="navbar navbar-expand-lg navbar-light shadow-md p-3 py-4 px-4 fixed-top"  style="border-bottom: 0.5px solid rgba(138, 138, 138, 0.151);background-color: white;">
+    <div class="d-flex align-items-center">
+        
+        <a style="text-decoration: none; color: black;" href="/"><img src="{% static 'imgs/sendthro1.png' %}" style="width: 170px;" alt=""></a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="padding:5px">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+            </li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+            {% else %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+              </li>
+            {% endif %}
+        </li>
+            
+        </ul>
+    </div>
+</nav>
+
+
+
+<div style="margin-top: 120px;">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+
+
+
+
+<footer class="footer bg-light" >
+    <div class="container">
+        <div class="row">
+            <div class="footer-col">
+                <h4>Developer</h4>
+                <ul>
+                    <li><a href="https://hassanelabdallah.com/" target="_blank">About me </a></li>
+                    <li><a href="https://www.freeprivacypolicy.com/live/6377c1c5-ea44-486e-9267-551b2eea7e9b" target="_blank">privacy policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact us</h4>
+                <div class="social-links">
+                    <a href="https://twitter.com/hassanelabdall3" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/hassan.elabdallah/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:hassankh613@hotmail.com" target="_blank"><i class="fas fa-at"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+</body>
+
+
+
+
+<style>
+
+    body{
+        background-image: linear-gradient( white , white);
+    }
+
+    
+    .container{
+        max-width: 1170px;
+        margin:auto;
+    }
+    .row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    ul{
+        list-style: none;
+    }
+    .footer{
+       
+        padding: 70px 0;
+    }
+    .footer-col{
+       width: 25%;
+       padding: 0 15px;
+    }
+    .footer-col h4{
+        font-size: 18px;
+        color: black;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        font-weight: 500;
+        position: relative;
+    }
+    .footer-col h4::before{
+        content: '';
+        position: absolute;
+        left:0;
+        bottom: -10px;
+        background-color: black;
+        height: 2px;
+        box-sizing: border-box;
+        width: 50px;
+    }
+    .footer-col ul li:not(:last-child){
+        margin-bottom: 10px;
+    }
+    .footer-col ul li a{
+        font-size: 16px;
+        text-transform: capitalize;
+        color: black;
+        text-decoration: none;
+        font-weight: 300;
+        color: black;
+        display: block;
+        transition: all 0.3s ease;
+    }
+    .footer-col ul li a:hover{
+        color: #ffffff;
+        padding-left: 8px;
+    }
+    .footer-col .social-links a{
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        background-color: rgba(255,255,255,0.2);
+        margin:0 10px 10px 0;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 50%;
+        color: black;
+        transition: all 0.5s ease;
+    }
+    .footer-col .social-links a:hover{
+        color: #24262b;
+        background-color: #ffffff;
+    }
+    
+    /*responsive*/
+    @media(max-width: 767px){
+      .footer-col{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    }
+    @media(max-width: 574px){
+      .footer-col{
+        width: 100%;
+    }
+    }
+
+
+</style>
+{% endblock body %}

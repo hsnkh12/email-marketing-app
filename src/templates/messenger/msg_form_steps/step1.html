@@ -1,0 +1,69 @@
+{% extends 'messenger/msg_form_steps/main.html' %}
+{% load crispy_forms_tags %}
+{% block steps %}
+<div class="row row-cols-1 row-cols-md-2 g-3">
+
+    <div class="col ">
+        <div class="card" style="padding: 25px;" >
+        
+            <h5 class="card-header ">Details</h5>
+            <br/>
+            <div class="card-body">
+                
+                    {% csrf_token %}
+
+                    Subject :
+                    <input type="text" name='subject' class="form-control" required>
+                    <br>
+
+                    From email :
+                    <select name="email" id="" class="form-control" required>
+                        {% for email in emails %}
+                        <option value='{{email.id}}' selected>{{email.email}}</option>
+                        {% endfor %}
+                        
+                    </select>
+                    <br>
+                    
+                    
+                    Body Type:
+                    <select name="type" class="form-control" id="">
+                        <option value="h">Html</option>
+                        <option value="p">Plain text</option>
+                    </select>
+    
+                
+                <br/>
+                           
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col mb-3">
+        <div class="card" style="padding: 25px;">
+            <h5 class="card-header ">Subscribers</h5>
+            <br/>
+            <div class="card-body">
+                To :
+                <select name="subs"  multiple="multiple" class="form-control" id="ms" style="height: 230px;" required>
+                    {% for sub in subs %}
+                    <option value='{{sub.id}}' selected>{{sub.email}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+    
+
+
+
+{% endblock steps %}   
+
+{% block button %}
+    <button class="btn btn-primary" type="submit">Save & continue</button>
+{% endblock button %}

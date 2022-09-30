@@ -1,0 +1,42 @@
+{% extends 'navfoot.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<br>
+<div class='row' style="display: grid;place-items: center;" >
+
+    <form method="POST" class="card bg-light" style='padding: 25px;max-width: 450px'>
+        
+        <h5 class="card-header " style="background-color: inherit;">Delete account</h5>
+        <br/>
+        <div class="card-body">
+        <div action="" class="form-group">
+        
+        <p>Are your sure you want to delete {{request.user.username}}?</p>
+        <small style="color: rgba(255, 0, 0, 0.637);">Note that all data related to your account ( emails, campaings, subscribers ) will be permanently deleted from this website</small>
+
+            
+            
+
+        </div>
+        <br/>
+        <a class='btn btn-secondary' href="{% url 'accounts:profile' %}">Cancel</a>
+        {% csrf_token %}
+        <button class="btn btn-danger" id='dlt-btn' type="submit">Confirm</button>
+        
+        </div>
+            
+        </div>
+    </form>
+
+</div>
+
+<br><br>
+
+<script>
+    document.getElementById('dlt-btn').addEventListener('click',function(){
+
+        alert('Your account is deleted permanently, for more information contact us')
+    })
+</script>
+{% endblock content %}

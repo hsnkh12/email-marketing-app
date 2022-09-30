@@ -1,0 +1,146 @@
+{% extends 'messenger/msg_form_steps/main.html' %}
+{% load crispy_forms_tags %}
+{% block steps %}
+
+
+<textarea name="" id="htmlcode" cols="30" rows="10" hidden>{{camp.message.body}}</textarea>
+
+<div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+
+    <div class="col col-md-7 ">
+        <div class="card "  style="padding: 25px;">
+
+            <h5 class="card-header ">Details</h5>
+            <br/>
+            <div class="card-body">
+                
+                Subject :
+                <input type="text" value="{{camp.message.subject}}" class='form-control' disabled>
+                <br>
+
+                From email :
+                <input type="text" value="{{camp.from_email}}" class='form-control' disabled>
+                <br>
+                
+                
+                Body Type:
+                <input type="text" value="{{camp.message.get_type_display}}" class='form-control' disabled>
+                <br>
+
+                
+                Status :
+                {% if not camp.completed %}
+                    <p class="mb-1"style=" border:1px solid silver; padding: 10px;" >Draft</p>
+                {% elif camp.status == 'p' %}
+                    <p class="mb-1" style="color: rgba(255, 166, 0, 0.829);border:1px solid rgba(255, 166, 0, 0.432); padding: 10px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Message broker is processing your message">{{camp.get_status_display}}</p>
+                {% elif camp.status == 'a' %}
+                    <p class="mb-1 " style="color: green;border:1px solid rgba(0, 128, 0, 0.342); padding: 10px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Your message is accepted and sent to your subscribers">{{camp.get_status_display}}</p>
+                {% elif camp.status == 'r' %}
+                    <p class="mb-1 " style="color: rgba(255, 0, 0, 0.822);border:1px solid rgba(255, 0, 0, 0.322); padding: 10px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Your message is rejected for some reason">{{camp.get_status_display}}</p>
+                
+                {% endif %}
+                
+                
+            </div>
+
+            
+
+        </div>
+
+
+        
+    </div>
+    
+    
+    <div class="col col-md-5">
+        <div class="card "  style="padding: 25px;">
+
+            <h5 class="card-header ">Perview</h5>
+            <br/>
+            
+            <iframe  class="preview" id="preview-window" style="height: 360px;"></iframe>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="col mb-3 col-md-7">
+        <div class="card" style="padding: 25px;">
+            <h5 class="card-header ">Subscribers</h5>
+            <br/>
+            <div class="card-body">
+                To :
+                <ul>
+                    <br>
+                    {% for sub in camp.to_emails.all %}
+                    <li selected>{{sub.email}}</li>
+                    {% endfor %}
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col mb-3 col-md-5">
+        <div class="card" style="padding: 25px;">
+            <h5 class="card-header ">Action</h5>
+            <br/>
+            {% if camp.completed %}
+        
+                <div><button class="btn btn-danger" id='delete-btn' type="button">Delete campaign</button></div>
+            {% endif %}
+        </div>
+        
+    </div>
+    
+    
+  
+</div>
+
+<script>
+    var htmlCode = document.getElementById('htmlcode').value;
+
+    const htmlEditor = document.querySelector(".html-code")
+
+    
+    let previewWindow = document.querySelector("#preview-window").contentWindow.document;
+    previewWindow.open();
+    previewWindow.write(htmlCode);
+    previewWindow.close();
+
+
+
+    document.getElementById('delete-btn').addEventListener('click',function(){
+
+    let c = confirm('Are your sure you want to delete this campaign?')
+
+    if(c){
+
+        let url = '/messenger/campaign-delete/{{camp.id}}'
+
+        fetch( url, {
+            method : "DELETE",
+            headers : {
+                "Content-type":"application/json",
+                "X-CSRFToken" : csrftoken
+            },
+        })
+        .then((response) => {
+            
+            window.location.href= '/messenger/campaigns/'
+            return response.json();
+        })
+
+    }
+    })
+
+</script>
+
+{% endblock steps %}
+
+
+{% block button %}
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit"> Confirm & send</button>
+{% endblock button %}

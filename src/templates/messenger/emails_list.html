@@ -1,0 +1,97 @@
+{% extends 'messenger/main.html' %}
+{% block container %}
+
+<style>
+    .card-item{
+        padding: 20px;
+        text-decoration: none;
+        
+    }
+
+    .card{
+        margin: 0px 10px 10px 0px;
+    }
+</style>
+
+
+
+    <div class="row">
+        <div class="col-6" style="display: grid;place-content: center start;">
+            <h1>Emails</h1></div>
+
+        <div class="col-6" style="display: grid;place-content:center end;">
+
+            <div style="display: grid;grid-template-columns: 50% 50%;grid-gap: 5px;">
+                
+                <div><a href="{% url 'messenger:email-create' %}" class="btn btn-dark btn-md " style="margin-bottom: 8px;">+</a></div>
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+    
+    <br>
+
+<div class="list-group" style="display: grid;place-items: center;">
+
+    {% for email in emails %}
+    
+    <div href="#" class="list-group-item list-group-item-action bg-light" id=card-{{email.id}} style="border-bottom: 1px solid rgba(219, 219, 219, 0.829);;padding: 25px;"  >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 >{{email.email}}</h5>
+          <i class="far fa-trash-alt email-delete" style="font-size: large;cursor: pointer;color:red" data-email={{email.id}}></i>
+        </div>
+        <p >{{email.smtp_server}}</p> 
+        <p class="mb-1" >Port : {{email.port}}</p>
+        
+    </div>
+    
+    {% endfor %}
+    
+</div>
+
+
+<script>
+
+    var emailDeleteBtns = document.getElementsByClassName('email-delete')
+    var modalBtn = document.getElementsByClassName('modal-btn')[0]
+
+    
+
+    for ( let i = 0 ; i < emailDeleteBtns.length ; i++){
+
+        emailDeleteBtns[i].addEventListener('click',function(){
+            c = confirm('Are you sure you want to delete this item?')
+            if (c){
+                deleteEmail(this.dataset.email)
+            }
+            
+        })
+    }
+    function deleteEmail(id){
+
+        let url = '/messenger/emails/'+id
+
+        fetch( url, {
+            method : "DELETE",
+            headers : {
+                "Content-type":"application/json ",
+                "X-CSRFToken" : csrftoken
+            },
+        })
+        .then((response) => {
+            document.getElementById('card-'+id).remove()
+            return response.json();
+        })
+    }
+
+    
+
+</script>
+
+{% endblock container %} 
+
+
+

@@ -1,0 +1,33 @@
+{% extends 'messenger/main.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+
+
+  <div class='row' style="display: grid;place-items: center;">
+
+    <form method="POST" class="card " style="padding: 25px;max-width: 450px;">
+
+      <h5 class="card-header " style="">Email addition</h5>
+      <br/>
+      <div class="card-body">
+      <div action="" class="form-group">
+          {% csrf_token %}
+          {% crispy form %}
+
+      </div>
+      <br/>
+      
+      <button class="btn btn-success" type="submit">Add</button>
+     
+      <br/>
+
+      </div>
+          
+      </div>
+    </form>
+
+    
+
+  </div>
+    
+{% endblock container %}

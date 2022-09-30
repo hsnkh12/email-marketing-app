@@ -1,0 +1,9 @@
+{% extends 'httpres/main.html' %}
+
+{% block message %}
+        <p>Message broker recieved your message;<br/>
+        <br>
+        <a href="{% url 'messenger:campaigns' %}">Return back</a>
+{% endblock message %}
+
+
